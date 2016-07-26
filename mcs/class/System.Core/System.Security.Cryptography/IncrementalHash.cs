@@ -1,5 +1,5 @@
 //
-// ECPArameters.cs
+// IncrementalHash.cs
 //
 // Authors:
 //	Marek Safar  <marek.safar@gmail.com>
@@ -26,14 +26,21 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
+#if (NETSTANDARD && !IN_FACADE) || (!NETSTANDARD && IN_FACADE)
+
 namespace System.Security.Cryptography
 {
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
-    public partial struct ECParameters
+    public sealed class IncrementalHash : IDisposable
     {
-        public ECCurve Curve;
-        public byte[] D;
-        public ECPoint Q;
-        public void Validate () { throw new NotImplementedException (); }
+        private IncrementalHash () { }
+        public HashAlgorithmName AlgorithmName { get { throw new NotImplementedException (); } }
+        public void AppendData (byte[] data) { }
+        public void AppendData (byte[] data, int offset, int count) { }
+        public static IncrementalHash CreateHash (HashAlgorithmName hashAlgorithm) { throw new NotImplementedException (); }
+        public static IncrementalHash CreateHMAC (HashAlgorithmName hashAlgorithm, byte[] key) { throw new NotImplementedException (); }
+        public void Dispose () { }
+        public byte[] GetHashAndReset () { throw new NotImplementedException (); }
     }
 }
+
+#endif
